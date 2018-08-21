@@ -150,7 +150,7 @@ Endpoint: `/tickets/{id}/edit`
 |---------|----------|
 | **title :** Title | **ticket :** [Ticket struct](#ticket-struct) |
 
-### Close a ticket
+#### Close a ticket
 
 Method:   `POST`  
 Endpoint: `/tickets/{id}/close`  
@@ -170,6 +170,37 @@ Endpoint: `/tickets/{id}/archive`
 |---------|----------|
 | | **ticket :** [Ticket struct](#ticket-struct) |
 
+## Messages
+
+#### Message Struct
+
+| Fields | Description |
+|--------|-------------|
+| **id** | Unique id |
+| **text** | Content |
+| **author** | [User struct](#user-struct) |
+| **ticket** | [Ticket struct](#ticket-struct) |
+
+#### Add message to ticket
+
+Method:   `POST`  
+Endpoint: `/messages/create/{id_ticket}`  
+
+| Request | Response |
+|---------|----------|
+| **text :** Content | **message :** [Message struct](#message-struct) |
+
+#### Edit a message
+
+Method:   `PATCH`  
+Endpoint: `/messages/{id}/edit`  
+
+| Request | Response |
+|---------|----------|
+| **text :** Content | **message :** [Message struct](#message-struct) |
+
+#### Get a ticket's message
+
 Method:   `.`  
 Endpoint: `.`  
 
@@ -177,16 +208,11 @@ Endpoint: `.`
 |---------|----------|
 | | |
 
-Method:   `.`  
-Endpoint: `.`  
+#### Get a ticket
+
+Method:   `GET`  
+Endpoint: `/messages/{id}`  
 
 | Request | Response |
 |---------|----------|
-| | |
-
-Method:   `.`  
-Endpoint: `.`  
-
-| Request | Response |
-|---------|----------|
-| | |
+| | **message :** [Message struct](#message-struct) |
