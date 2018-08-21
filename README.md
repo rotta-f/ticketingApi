@@ -13,6 +13,14 @@
 `POST` [/users/create/client](#create-a-client-user)  
 `PATCH` [/users/edit/{id_user}](#edit-a-user)  
 
+#### Tickets
+`POST` [/tickets/create](#create-a-ticket)  
+`GET` [/tickets/{id}](#get-a-ticket)  
+`GET` [/tickets](#get-a-list-of-tickets)  
+`PATCH` [/tickets/{id}/edit](#edit-a-ticket)  
+`POST` [/tickets/{id}/close](#close-a-ticket)  
+`POST` [/tickets/{id}/archive](#archive-a-ticket)  
+
 ## Authentication
 
 #### Sign up
@@ -95,14 +103,75 @@ Endpoint: `/users/edit/{id_user}`
 | Fields | Description |
 |--------|-------------|
 | **id** | Unique id |
+| **title** | Title |
 | **author** | [User struct](#user-struct) |
 | **status** | (Open / Pending reply / Closed) |
-| **messages** | Array of [Message struct](#message-struct) |
+| *(optional)* **messages** | Array of [Message struct](#message-struct) |
 
 #### Create a ticket
 
 Method:   `POST`  
 Endpoint: `/tickets/create`  
+
+| Request | Response |
+|---------|----------|
+| **title :** Ticket name | **ticket :** [Ticket struct](#ticket-struct) |
+| **message :** Ticket Description | |
+
+#### Get a ticket
+
+Method:   `GET`  
+Endpoint: `/tickets/{id}`  
+
+| Request | Response |
+|---------|----------|
+| | **ticket :** [Ticket struct](#ticket-struct) |
+
+#### Get a list of tickets
+
+Method:   `GET`  
+Endpoint: `/tickets` 
+
+URI Parameters:  
+*(optional)* **user :** Id of the author
+
+| Request | Response |
+|---------|----------|
+| | **tickets :** Array of [Ticket struct](#ticket-struct) |
+
+#### Edit a ticket
+
+Method:   `PATCH`  
+Endpoint: `/tickets/{id}/edit`  
+
+*A client can only modify a ticket created by himself*
+
+| Request | Response |
+|---------|----------|
+| **title :** Title | **ticket :** [Ticket struct](#ticket-struct) |
+
+### Close a ticket
+
+Method:   `POST`  
+Endpoint: `/tickets/{id}/close`  
+
+*Only for support*
+
+| Request | Response |
+|---------|----------|
+| | **ticket :** [Ticket struct](#ticket-struct) |
+
+#### Archive a ticket
+
+Method:   `POST`  
+Endpoint: `/tickets/{id}/archive`  
+
+| Request | Response |
+|---------|----------|
+| | **ticket :** [Ticket struct](#ticket-struct) |
+
+Method:   `.`  
+Endpoint: `.`  
 
 | Request | Response |
 |---------|----------|
