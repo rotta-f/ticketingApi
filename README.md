@@ -23,9 +23,11 @@ Endpoint: `/auth/signup`
 |Request | Response|
 |--------|---------|
 | **firstname :** User first name | **token :** Access token |
-| **lastname :**  User last name | |
-| **email :** User email | |
-| **password :**  User password | |
+| **lastname :**  User last name | **id :** User id |
+| **email :** User email | **firstname :** User first name |
+| **password :**  User password | **lastname :**  User last name |
+| | **email :** User email |  
+| | **type :** User type |
 
 #### Log in
 
@@ -84,6 +86,22 @@ Endpoint: `/users/edit/{id_user}`
 | *(optional)* **email :** User email | **email :** User email |
 | *(optional)* **type :** User type, *only for support* | **type :** User type |
 | *(optional)* **password :**  User password | |
+
+
+
+Method:   `.`  
+Endpoint: `.`  
+
+| Request | Response |
+|---------|----------|
+| | |
+
+Method:   `.`  
+Endpoint: `.`  
+
+| Request | Response |
+|---------|----------|
+| | |
 
 Method:   `.`  
 Endpoint: `.`  
