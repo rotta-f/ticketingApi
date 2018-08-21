@@ -4,7 +4,14 @@
 
 #### Authentication
 
-`POST` [/auth/signup](#sign-up)
+`POST` [/auth/signup](#sign-up)  
+`GET` [/auth/login](#log-in)  
+
+#### User management
+
+`POST` [/users/create/support](#create-a-support-user)  
+`POST` [/users/create/client](#create-a-client-user)  
+`PATCH` [/users/edit/{id_user}](#edit-a-user)  
 
 ## Authentication
 
