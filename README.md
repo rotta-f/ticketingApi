@@ -37,7 +37,11 @@ Endpoint: `/auth/login`
 | Request | Response |
 |---------|----------|
 | **email :** User email | **token :** Access token |
-| **password :** User password | |
+| **password :**  User password | **id :** User id |
+| | **firstname :** User first name |
+| | **lastname :**  User last name |
+| | **email :** User email |  
+| | **type :** User type |
 
   
   
@@ -52,9 +56,11 @@ Endpoint: `/users/create/support`
 
 | Request | Response |
 |---------|----------|
-| **email :** User email | **firstname :** User first name |
+| **email :** User email | **id :** User id |
+| | **firstname :** User first name |
 | | **lastname :** User last name |
 | | **email :** User email |
+| | **type :** User type |
 | | **password :** User password |
 
 #### Create a client user
@@ -66,7 +72,8 @@ Endpoint: `/users/create/client`
 
 | Request | Response |
 |---------|----------|
-| **email :** User email | **firstname :** User first name |
+| **email :** User email | **id :** User id |
+| | **firstname :** User first name |
 | | **lastname :** User last name |
 | | **email :** User email |
 | | **type :** User type |
@@ -81,6 +88,7 @@ Endpoint: `/users/edit/{id_user}`
 
 | Request | Response |
 |---------|----------|
+| | **id :** User id |
 | *(optional)* **firstname :** User first name | **firstname :** User first name |
 | *(optional)* **lastname :**  User last name | **lastname :**  User last name |
 | *(optional)* **email :** User email | **email :** User email |
