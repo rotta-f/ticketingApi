@@ -1,5 +1,11 @@
 # TicketingApi
 
+## Routes
+
+#### Authentication
+
+`POST` [/auth/signup](#sign-up)
+
 ## Authentication
 
 #### Sign up
