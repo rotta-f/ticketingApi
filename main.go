@@ -1,4 +1,5 @@
 package main
+<<<<<<< HEAD
 
 import (
 	"github.com/rotta-f/ticketingApi/database"
@@ -45,3 +46,5 @@ func main() {
 	bool = rg.Match([]byte("/ticket/1"))
 	println(bool, err)
 }
+=======
+>>>>>>> 32d360c1a5fd9fd32f59360d4ea4dbe62f3ebe16
