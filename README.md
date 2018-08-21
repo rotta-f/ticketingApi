@@ -21,6 +21,12 @@
 `POST` [/tickets/{id}/close](#close-a-ticket)  
 `POST` [/tickets/{id}/archive](#archive-a-ticket)  
 
+#### Messages
+`POST` [/messages/ticket/{id_ticket}/create](#add-message-to-ticket)  
+`GET` [messages/ticket/{id_ticket}](#get-a-tickets-message)  
+`GET` [messages/{id}](#get-a-message)  
+`PATCH` [messages/{id}/edit](#edit-a-message)
+
 ## Authentication
 
 #### Sign up
@@ -184,7 +190,7 @@ Endpoint: `/tickets/{id}/archive`
 #### Add message to ticket
 
 Method:   `POST`  
-Endpoint: `/messages/create/{id_ticket}`  
+Endpoint: `/messages/ticket/{id_ticket}/create`  
 
 | Request | Response |
 |---------|----------|
@@ -201,14 +207,14 @@ Endpoint: `/messages/{id}/edit`
 
 #### Get a ticket's message
 
-Method:   `.`  
-Endpoint: `.`  
+Method:   `GET`  
+Endpoint: `/messages/ticket/{id_ticket}`  
 
 | Request | Response |
 |---------|----------|
-| | |
+| | **messages :** Array Of [Message struct](#message-struct) |
 
-#### Get a ticket
+#### Get a message
 
 Method:   `GET`  
 Endpoint: `/messages/{id}`  
