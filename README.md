@@ -23,11 +23,9 @@ Endpoint: `/auth/signup`
 |Request | Response|
 |--------|---------|
 | **firstname :** User first name | **token :** Access token |
-| **lastname :**  User last name | **id :** User id |
-| **email :** User email | **firstname :** User first name |
-| **password :**  User password | **lastname :**  User last name |
-| | **email :** User email |  
-| | **type :** User type |
+| **lastname :**  User last name | **user :** [User struct](#user-struct) |
+| **email :** User email | |
+| **password :**  User password | |
 
 #### Log in
 
@@ -37,15 +35,19 @@ Endpoint: `/auth/login`
 | Request | Response |
 |---------|----------|
 | **email :** User email | **token :** Access token |
-| **password :**  User password | **id :** User id |
-| | **firstname :** User first name |
-| | **lastname :**  User last name |
-| | **email :** User email |  
-| | **type :** User type |
-
-  
+| **password :**  User password | **user :** [User struct](#user-struct) |  
   
 ## User management
+
+#### User struct
+
+| Fields | Description |
+|--------|-------------|
+| **id** | Unique id |
+| **firstname** | First name |
+| **lastname** | Last name |
+| **type** | (Support / Client) |
+| **email** | Email |
 
 #### Create a support user
 
@@ -56,11 +58,7 @@ Endpoint: `/users/create/support`
 
 | Request | Response |
 |---------|----------|
-| **email :** User email | **id :** User id |
-| | **firstname :** User first name |
-| | **lastname :** User last name |
-| | **email :** User email |
-| | **type :** User type |
+| **email :** User email | **user :** [User struct](#user-struct) |
 | | **password :** User password |
 
 #### Create a client user
@@ -72,11 +70,7 @@ Endpoint: `/users/create/client`
 
 | Request | Response |
 |---------|----------|
-| **email :** User email | **id :** User id |
-| | **firstname :** User first name |
-| | **lastname :** User last name |
-| | **email :** User email |
-| | **type :** User type |
+| **email :** User email | **user :** [User struct](#user-struct) |  
 | | **password :** User password |
 
 #### Edit a user
@@ -88,17 +82,27 @@ Endpoint: `/users/edit/{id_user}`
 
 | Request | Response |
 |---------|----------|
-| | **id :** User id |
-| *(optional)* **firstname :** User first name | **firstname :** User first name |
-| *(optional)* **lastname :**  User last name | **lastname :**  User last name |
-| *(optional)* **email :** User email | **email :** User email |
-| *(optional)* **type :** User type, *only for support* | **type :** User type |
+| *(optional)* **firstname :** User first name | **user :** [User struct](#user-struct) |
+| *(optional)* **lastname :**  User last name | |
+| *(optional)* **email :** User email | |
+| *(optional)* **type :** User type, *only for support* | |
 | *(optional)* **password :**  User password | |
 
+## Tickets
 
+#### Ticket struct
 
-Method:   `.`  
-Endpoint: `.`  
+| Fields | Description |
+|--------|-------------|
+| **id** | Unique id |
+| **author** | [User struct](#user-struct) |
+| **status** | (Open / Pending reply / Closed) |
+| **messages** | Array of [Message struct](#message-struct) |
+
+#### Create a ticket
+
+Method:   `POST`  
+Endpoint: `/tickets/create`  
 
 | Request | Response |
 |---------|----------|
