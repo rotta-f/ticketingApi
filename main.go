@@ -2,11 +2,11 @@ package main
 
 import (
 	"github.com/rotta-f/ticketingApi/database"
-	"net/http"
-	"regexp"
-	"time"
-	"log"
+	"github.com/rotta-f/ticketingApi/handlers"
 	"github.com/rotta-f/ticketingApi/router"
+	"log"
+	"net/http"
+	"time"
 )
 
 func withLogging(next http.HandlerFunc) http.HandlerFunc {
@@ -22,27 +22,13 @@ func withLogging(next http.HandlerFunc) http.HandlerFunc {
 func main() {
 	database.PrintDatabse()
 
-
 	routerAuth := router.NewRouter()
-	routerAuth.AddRoute("GET", "/v1/auth/login", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("login"))
-	})
-	routerAuth.AddRoute("POST", "/v1/auth/signup", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("signup"))
-	})
-	routerAuth.AddRoute("POST", `/v1/auth/+[\d]`, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("signup"))
-	})
-
+	routerAuth.AddRoute("POST", "/v1/auth/login", handlers.AuthLogin)
 	http.Handle("/v1/auth/", withLogging(router.UseRouter(routerAuth)))
 
+	/*routerAuth.AddRoute("POST", `/v1/auth/+[\d]`, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("signup"))
+	})*/
+
 	http.ListenAndServe(":3000", nil)
-
-	rg, err := regexp.Compile(`^/ticket/+[\d]+/create/*$`)
-	bool := rg.Match([]byte("/ticket/19/create"))
-	println(bool, err)
-	rg, err = regexp.Compile(`^/ticket/+[\d]/*$`)
-	bool = rg.Match([]byte("/ticket/1"))
-	println(bool, err)
 }
-

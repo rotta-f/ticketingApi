@@ -1,15 +1,15 @@
 package database
 
 import (
+	"errors"
 	"fmt"
-	"log"
 	"github.com/rotta-f/ticketingApi/datastructures"
 	"golang.org/x/crypto/bcrypt"
-	"errors"
+	"log"
 )
 
 const (
-	LOG_DATABASE_USER = "[DATABASE_USER]"
+	logDatabaseUser = "[DATABASE_USER] "
 )
 
 func PrintDatabse() {
@@ -33,10 +33,9 @@ func createUser(u *datastructures.User) (*datastructures.User, error) {
 		return nil, errors.New("Password empty")
 	}
 
-
 	password, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
-		log.Panic(LOG_DATABASE_USER, "Can't generate hash", err)
+		log.Panic(logDatabaseUser, "Can't generate hash", err)
 		return nil, err
 	}
 
@@ -44,7 +43,7 @@ func createUser(u *datastructures.User) (*datastructures.User, error) {
 
 	retDB := gDB.Create(u)
 	if retDB.Error != nil {
-		log.Println(LOG_DATABASE_USER, "Can't create user", retDB.Error)
+		log.Println(logDatabaseUser, "Can't create user", retDB.Error)
 		return nil, retDB.Error
 	}
 
@@ -59,4 +58,15 @@ func CreateUserClient(u *datastructures.User) (*datastructures.User, error) {
 func CreateUserSupport(u *datastructures.User) (*datastructures.User, error) {
 	u.Type = datastructures.USER_TYPE_SUPPORT
 	return createUser(u)
+}
+
+func GetUserByEmail(email string) (*datastructures.User, error) {
+	in := datastructures.User{Email: email}
+	out := &datastructures.User{}
+	if gDB.Where(&in).First(out).RecordNotFound() {
+		err := errors.New("No user with email " + email)
+		log.Println(logDatabaseUser, err)
+		return nil, err
+	}
+	return out, nil
 }

@@ -18,9 +18,9 @@ type Router struct {
 
 func (r *Router) AddRoute(method string, path string, handlerFunc http.HandlerFunc) {
 	route := Route{
-		Method:method,
-		Path:path,
-		HandlerFunc:handlerFunc,
+		Method:      method,
+		Path:        path,
+		HandlerFunc: handlerFunc,
 	}
 	route.rg = regexp.MustCompile(`^` + route.Path + `/*$`)
 	r.Routes = append(r.Routes, route)

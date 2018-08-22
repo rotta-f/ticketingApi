@@ -9,17 +9,16 @@ import (
 )
 
 const (
-	LOG_DATABASE_INIT = "[DATABASE_INIT] "
+	logDatabaseInit = "[DATABASE_INIT] "
 )
 
 var gDB *gorm.DB
 
 func init() {
 	db, err := gorm.Open("sqlite3", "ticketing.db")
-	defer db.Close()
 
 	if err != nil {
-		log.Fatal(LOG_DATABASE_INIT, err)
+		log.Fatal(logDatabaseInit, err)
 	}
 
 	db.SingularTable(true)
@@ -31,12 +30,12 @@ func init() {
 	var c int
 	retDB := db.Model(&datastructures.User{}).Count(&c)
 	if retDB.Error != nil {
-		log.Fatal(LOG_DATABASE_INIT, retDB.Error)
+		log.Fatal(logDatabaseInit, retDB.Error)
 	}
 	if c == 0 {
 		_, err := CreateUserSupport(&datastructures.User{Firstname: "admin", Lastname: "admin", Email: "admin@ticket.lu", Password: "admin"})
 		if err != nil {
-			log.Fatal(LOG_DATABASE_INIT, err)
+			log.Fatal(logDatabaseInit, err)
 		}
 	}
 }
