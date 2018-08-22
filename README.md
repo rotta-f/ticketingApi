@@ -5,7 +5,7 @@
 #### Authentication
 
 `POST` [/auth/signup](#sign-up)  
-`GET` [/auth/login](#log-in)  
+`POST` [/auth/login](#log-in)  
 
 #### User management
 
@@ -43,7 +43,7 @@ Endpoint: `/auth/signup`
 
 #### Log in
 
-Method:   `GET`  
+Method:   `POST`  
 Endpoint: `/auth/login`  
 
 | Request | Response |
