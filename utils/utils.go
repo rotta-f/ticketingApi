@@ -1,20 +1,31 @@
 package utils
 
 import (
-	"encoding/json"
-	"log"
-	"net/http"
-	"math/rand"
-	"time"
 	"encoding/binary"
-	"golang.org/x/crypto/bcrypt"
 	"encoding/hex"
+	"encoding/json"
+	"golang.org/x/crypto/bcrypt"
+	"log"
+	"math/rand"
+	"net/http"
+	"time"
 )
 
 const (
-	logUtilsJson = "[UTILS_JSON] "
-	logUtilsToken = "[UTILS_TOKEN] "
+	logUtilsJson     = "[UTILS_JSON] "
+	logUtilsToken    = "[UTILS_TOKEN] "
+	logUtilsPassword = "[UTILS_TOKEN] "
 )
+
+func GeneratePassword() (string, error) {
+	p := make([]byte, 4)
+	i, err := rand.Read(p)
+	if i != 4 || err != nil {
+		log.Println(logUtilsPassword, err.Error())
+		return "", err
+	}
+	return hex.EncodeToString(p), nil
+}
 
 func GenerateToken() (string, error) {
 	token := make([]byte, 56)

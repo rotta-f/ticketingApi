@@ -2,7 +2,6 @@ package database
 
 import (
 	"errors"
-	"fmt"
 	"github.com/rotta-f/ticketingApi/datastructures"
 	"golang.org/x/crypto/bcrypt"
 	"log"
@@ -11,10 +10,6 @@ import (
 const (
 	logDatabaseUser = "[DATABASE_USER] "
 )
-
-func PrintDatabse() {
-	fmt.Println("print")
-}
 
 func createUser(u *datastructures.User) (*datastructures.User, error) {
 	if u.Firstname == "" {
@@ -69,4 +64,25 @@ func GetUserByEmail(email string) (*datastructures.User, error) {
 		return nil, err
 	}
 	return out, nil
+}
+
+func UpdateUser(u *datastructures.User) (error) {
+	model := datastructures.User{}
+	model.ID = u.ID
+
+	if u.Password != "" {
+		p, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+		if err != nil {
+			log.Panic(logDatabaseUser, "Can't generate hash", err)
+			return err
+		}
+		u.Password = string(p)
+	}
+
+	retDB := gDB.Model(&model).Update(u)
+	if retDB.Error != nil {
+		log.Println(logDatabaseUser, "Update ", retDB.Error)
+		return retDB.Error
+	}
+	return nil
 }

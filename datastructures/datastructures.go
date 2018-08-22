@@ -43,3 +43,11 @@ type Message struct {
 	Author User   `json:"author"`
 	Ticket Ticket `json:"ticket"`
 }
+
+type Authentication struct {
+	gorm.Model `json:"-"`
+
+	Token  string `json:"token" gorm:";unique"`
+	User   *User   `json:"user"`
+	UserID int    `json:"-"`
+}

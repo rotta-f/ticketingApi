@@ -6,25 +6,44 @@ import (
 	"github.com/rotta-f/ticketingApi/utils"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
-	"github.com/rotta-f/ticketingApi/router"
 )
 
-type authLoginPayload struct {
-	Email    string `json:"email"`
+const (
+	STORE_AUTH = "auth"
+)
+
+type authRequestPayload struct {
+	*datastructures.User
 	Password string `json:"password"`
 }
 
-type authPayload struct {
-	Token string              `json:"token"`
+type authResponsePayload struct {
+	Token string               `json:"token"`
 	User  *datastructures.User `json:"user"`
 }
 
+// Create access token and store the token in memory linked to the uer
+func initConnection(u *datastructures.User) (string, error) {
+	t, err := utils.GenerateToken()
+	if err != nil {
+		return "", err
+	}
+
+	a := &datastructures.Authentication{Token: t, User: u}
+	database.AddAuthToken(a)
+
+	return t, nil
+}
+
+// Method: POST
+// Route: /auth/login
+// Authentication via email / password
 func AuthLogin(w http.ResponseWriter, r *http.Request) {
-	var payload authLoginPayload
+	var payload authRequestPayload
 
 	err := utils.BindJSON(r, &payload)
 	if err != nil {
-		utils.WriteError(w, http.StatusBadRequest, "Bad payload", err.Error())
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
 		return
 	}
 
@@ -44,18 +63,39 @@ func AuthLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := utils.GenerateToken()
+	t, err := initConnection(u)
 	if err != nil {
 		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
 		return
 	}
 
-	router.InitStore(t)
-	router.GetStore(t).Set("user", u)
-	var uu *datastructures.User
-	uu = router.GetStore(t).Get("user").(*datastructures.User)
-	println(uu.Email)
+	utils.WriteJSON(w, authResponsePayload{Token: t, User: u})
+}
 
+// Method: POST
+// Route: /auth/signup
+// Create a new client user
+func AuthSignup(w http.ResponseWriter, r *http.Request) {
+	var payload authRequestPayload
 
-	utils.WriteJSON(w, authPayload{Token: t, User: u})
+	err := utils.BindJSON(r, &payload)
+	if err != nil {
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
+		return
+	}
+
+	payload.User.Password = payload.Password
+	payload.User, err = database.CreateUserClient(payload.User)
+	if err != nil {
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
+		return
+	}
+
+	t, err := initConnection(payload.User)
+	if err != nil {
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	utils.WriteJSON(w, authResponsePayload{Token: t, User: payload.User})
 }

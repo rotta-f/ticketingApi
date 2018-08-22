@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"regexp"
+	"github.com/rotta-f/ticketingApi/utils"
 )
 
 type Route struct {
@@ -38,7 +39,9 @@ func UseRouter(router *Router) http.HandlerFunc {
 		for _, route := range router.Routes {
 			if r.Method == route.Method && route.rg.Match([]byte(r.URL.Path)) {
 				route.HandlerFunc(w, r)
+				return
 			}
 		}
+		utils.WriteError(w, http.StatusNotFound, http.StatusText(http.StatusNotFound), "")
 	}
 }

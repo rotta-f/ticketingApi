@@ -22,7 +22,7 @@ func init() {
 	}
 
 	db.SingularTable(true)
-	db.AutoMigrate(&datastructures.User{}, &datastructures.Ticket{}, &datastructures.TicketArchive{}, &datastructures.Message{})
+	db.AutoMigrate(&datastructures.User{}, &datastructures.Ticket{}, &datastructures.TicketArchive{}, &datastructures.Message{}, &datastructures.Authentication{})
 
 	gDB = db
 
