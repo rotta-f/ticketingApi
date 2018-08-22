@@ -55,15 +55,25 @@ func CreateUserSupport(u *datastructures.User) (*datastructures.User, error) {
 	return createUser(u)
 }
 
-func GetUserByEmail(email string) (*datastructures.User, error) {
-	in := datastructures.User{Email: email}
+func GetUser(in *datastructures.User) (*datastructures.User, error) {
 	out := &datastructures.User{}
 	if gDB.Where(&in).First(out).RecordNotFound() {
-		err := errors.New("No user with email " + email)
+		err := errors.New("Record not found")
 		log.Println(logDatabaseUser, err)
 		return nil, err
 	}
 	return out, nil
+}
+
+func GetUserByEmail(email string) (*datastructures.User, error) {
+	in := datastructures.User{Email: email}
+	return GetUser(&in)
+}
+
+func GetUserByID(id uint) (*datastructures.User, error) {
+	in := datastructures.User{}
+	in.ID = id
+	return GetUser(&in)
 }
 
 func UpdateUser(u *datastructures.User) (error) {

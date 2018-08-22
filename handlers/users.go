@@ -11,7 +11,7 @@ import (
 )
 
 type userCreatePayload struct {
-	*datastructures.User
+	datastructures.User
 	Password string `json:"password"`
 }
 
@@ -53,7 +53,8 @@ func userCreate(w http.ResponseWriter, r *http.Request, create func(user *datast
 	payload.Lastname = t
 	payload.User.Password = p
 	payload.Password = p
-	payload.User, err = create(payload.User)
+	u, err = create(&payload.User)
+	payload.User = *u
 	if err != nil {
 		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
 		return
@@ -114,10 +115,16 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	payload.ID = uint(id)
 	payload.User.Password = payload.Password
-	err = database.UpdateUser(payload.User)
+	err = database.UpdateUser(&payload.User)
 	if err != nil {
 		utils.WriteError(w, http.StatusBadRequest, "Can't update user" ,err.Error())
 		return
 	}
-	utils.WriteJSON(w, payload.User)
+	userUpdated, err := database.GetUserByID(payload.ID)
+	if err != nil {
+		log.Println(logHandlerUser, "GetUserByEmail ", err)
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+	utils.WriteJSON(w, userUpdated)
 }
