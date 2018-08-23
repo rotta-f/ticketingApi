@@ -76,7 +76,7 @@ func GetUserByID(id uint) (*datastructures.User, error) {
 	return GetUser(&in)
 }
 
-func UpdateUser(u *datastructures.User) (error) {
+func UpdateUser(u *datastructures.User) error {
 	model := datastructures.User{}
 	model.ID = u.ID
 

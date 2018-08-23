@@ -22,8 +22,7 @@ func init() {
 	}
 
 	db.SingularTable(true)
-	db.AutoMigrate(&datastructures.User{}, &datastructures.Ticket{}, &datastructures.TicketArchive{}, &datastructures.Message{}, &datastructures.Authentication{})
-
+	db.AutoMigrate(&datastructures.Authentication{}, &datastructures.User{}, &datastructures.Message{}, &datastructures.Ticket{}, &datastructures.TicketArchive{})
 	gDB = db
 
 	// Create admin user if new database

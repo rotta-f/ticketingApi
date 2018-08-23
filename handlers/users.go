@@ -4,10 +4,10 @@ import (
 	"github.com/rotta-f/ticketingApi/database"
 	"github.com/rotta-f/ticketingApi/datastructures"
 	"github.com/rotta-f/ticketingApi/utils"
-	"net/http"
-	"strings"
-	"strconv"
 	"log"
+	"net/http"
+	"strconv"
+	"strings"
 )
 
 type userCreatePayload struct {
@@ -117,7 +117,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	payload.User.Password = payload.Password
 	err = database.UpdateUser(&payload.User)
 	if err != nil {
-		utils.WriteError(w, http.StatusBadRequest, "Can't update user" ,err.Error())
+		utils.WriteError(w, http.StatusBadRequest, "Can't update user", err.Error())
 		return
 	}
 	userUpdated, err := database.GetUserByID(payload.ID)

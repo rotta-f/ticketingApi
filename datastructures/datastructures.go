@@ -27,9 +27,10 @@ type Ticket struct {
 	gorm.Model
 
 	Title    string    `json:"title"`
+	AuthorID uint      `json:"-"`
 	Author   User      `json:"author"`
 	Status   string    `json:"status"`
-	Messages []Message `json:"messages"`
+	Messages []Message `json:"messages" gorm:"foreignkey:TicketID"`
 }
 
 type TicketArchive struct {
@@ -39,15 +40,17 @@ type TicketArchive struct {
 type Message struct {
 	gorm.Model
 
-	Text   string `json:"text"`
-	Author User   `json:"author"`
-	Ticket Ticket `json:"ticket"`
+	Text     string `json:"text"`
+	Author   User   `json:"author"`
+	AuthorID uint   `json:"-"`
+	Ticket   *Ticket `json:"ticket,omitempty"`
+	TicketID uint   `json:"-"`
 }
 
 type Authentication struct {
 	gorm.Model `json:"-"`
 
 	Token  string `json:"token" gorm:";unique"`
-	User   *User   `json:"user"`
+	User   *User  `json:"user"`
 	UserID int    `json:"-"`
 }

@@ -1,9 +1,9 @@
 package router
 
 import (
+	"github.com/rotta-f/ticketingApi/utils"
 	"net/http"
 	"regexp"
-	"github.com/rotta-f/ticketingApi/utils"
 )
 
 type Route struct {
