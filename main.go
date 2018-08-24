@@ -34,7 +34,7 @@ func main() {
 	routerMessage.AddRoute("POST", `/v1/messages/ticket/+[\d]+`, handlers.NewMessageToTicket)
 	routerMessage.AddRoute("GET", `/v1/messages/ticket/+[\d]+`, handlers.GetTicketMessages)
 	routerMessage.AddRoute("GET", `/v1/messages/+[\d]+`, handlers.GetMessage)
-	routerMessage.AddRoute("PATCH", `/v1/messages/+[\d]+`, nil)
+	routerMessage.AddRoute("PATCH", `/v1/messages/+[\d]+`, handlers.EditMessage)
 	http.Handle("/v1/messages/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerMessage)))))
 
 	/*routerAuth.AddRoute("POST", `/v1/auth/+[\d]`, func(w http.ResponseWriter, r *http.Request) {

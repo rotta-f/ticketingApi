@@ -128,3 +128,61 @@ func GetMessage(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.WriteJSON(w, m)
 }
+
+// Method: PATCH
+// Route: /messages/{id}
+// Edit a message
+func EditMessage(w http.ResponseWriter, r *http.Request) {
+	u := CtxGetValue(r, STORE_AUTH).(*datastructures.User)
+	if u == nil {
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	// Get ID in path
+	urlT := strings.Split(r.URL.Path, "/")
+	id, err := strconv.ParseUint(urlT[3], 10, 64)
+	if err != nil {
+		log.Println(logHandlerMessage, "ParseInt ", err)
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	payload := &datastructures.Message{}
+	// Bind body with payload
+	err = utils.BindJSON(r, payload)
+	if err != nil {
+		log.Println(logHandlerMessage, "Fail to bind")
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
+		return
+	}
+
+	if payload.Text == "" {
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), "Text required")
+		return
+	}
+
+	// Check if client can modify that message
+	if u.Type != datastructures.USER_TYPE_SUPPORT {
+		m := &datastructures.Message{}
+		m.ID = uint(id)
+		m.AuthorID = u.ID
+		m, err = database.GetMessage(m)
+		if err != nil {
+			log.Println(logHandlerMessage, err)
+			utils.WriteError(w, http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized), "Client can only modify messages he created")
+			return
+		}
+	}
+
+	m := &datastructures.Message{}
+	m.ID = uint(id)
+	m.Text = payload.Text
+	m, err = database.EditMessage(m)
+	if err != nil {
+		log.Println(logHandlerMessage, err)
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), err.Error())
+		return
+	}
+	utils.WriteJSON(w, m)
+}

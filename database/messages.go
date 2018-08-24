@@ -54,3 +54,14 @@ func GetTicketMessages(in *datastructures.Ticket) ([]datastructures.Message, err
 	}
 	return out, nil
 }
+
+func EditMessage(in *datastructures.Message) (*datastructures.Message, error) {
+	model := datastructures.Message{}
+	model.ID = in.ID
+	retDB := gDB.Model(&model).Update(in)
+	if retDB.Error != nil {
+		log.Println(logDatabaseMessage, "GetTicketMessages ", retDB.Error)
+		return nil, retDB.Error
+	}
+	return GetMessage(&model)
+}
