@@ -21,14 +21,37 @@ func CreateTicket(userID uint, title, message string) (*datastructures.Ticket, e
 	if err != nil {
 		return nil, retDB.Error
 	}
-	return GetTicket(t)
+	in := &datastructures.Ticket{}
+	in.ID = t.ID
+	return GetTicket(in)
 }
 
 func GetTicket(in *datastructures.Ticket) (*datastructures.Ticket, error) {
 	out := &datastructures.Ticket{}
-	retDB := gDB.Model(in).Preload("Author").Preload("Messages").Preload("Messages.Author").Find(out)
+	retDB := gDB.Where(in).Preload("Author").Preload("Messages").Preload("Messages.Author").Find(out)
 	if retDB.Error != nil {
 		return nil, retDB.Error
 	}
 	return out, nil
+}
+
+func GetTickets(in *datastructures.Ticket) ([]datastructures.Ticket, error) {
+	out := []datastructures.Ticket{}
+	retDB := gDB.Where(in).Preload("Author").Find(&out)
+	if retDB.Error != nil {
+		return nil, retDB.Error
+	}
+	return out, nil
+}
+
+func EditTicket(tUpdate *datastructures.Ticket) (*datastructures.Ticket, error) {
+	model := &datastructures.Ticket{}
+	model.ID = tUpdate.ID
+
+	retDB := gDB.Model(model).Update(tUpdate)
+	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "Update ", retDB.Error)
+		return nil, retDB.Error
+	}
+	return GetTicket(model)
 }

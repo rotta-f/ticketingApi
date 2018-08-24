@@ -88,7 +88,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	// Get ID in path
 	urlT := strings.Split(r.URL.Path, "/")
 	id, err := strconv.ParseUint(urlT[4], 10, 64)
-	if u == nil {
+	if err != nil {
 		log.Println(logHandlerUser, "ParseInt ", err)
 		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
 		return
