@@ -34,6 +34,10 @@ To use any routes of the API, you need to add the version prefix (current `v1`) 
 All request (except for `/auth` routes) must be made with the access token in the header as follow :  
 `Authorization: Bearer *Your Access Token*`
 
+Default support user credentials:  
+Email: `admin@ticket.lu`  
+Password: `admin`
+
 Example of curl command on localhost:  
 `curl -X POST -H 'Authorization: Bearer *your_access_token*' -d '{"title": "Test", "message": "This is a test"}' "localhost:3000/v1/tickets/create"`
 
