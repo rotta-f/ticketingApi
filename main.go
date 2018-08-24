@@ -25,7 +25,7 @@ func main() {
 	routerTicket.AddRoute("GET", "/v1/tickets", handlers.GetTickets)
 	routerTicket.AddRoute("GET", `/v1/tickets/+[\d]+`, handlers.GetTicketById)
 	routerTicket.AddRoute("PATCH", `/v1/tickets/+[\d]+`, handlers.EditTicket)
-	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/close`, nil)
+	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/close`, handlers.CloseTicket)
 	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/archive`, nil)
 	http.Handle("/v1/tickets/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerTicket)))))
 	http.Handle("/v1/tickets", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerTicket)))))

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c2ed0e5-65d9-4d8a-be83-0de757ca1463" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/handlers/tickets.go" afterPath="$PROJECT_DIR$/handlers/tickets.go" />
+      <change beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,8 +37,8 @@
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="26" column="76" lean-forward="false" selection-start-line="26" selection-start-column="76" selection-end-line="26" selection-end-column="76" />
+            <state relative-caret-position="383">
+              <caret line="27" column="82" lean-forward="false" selection-start-line="27" selection-start-column="82" selection-end-line="27" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -46,18 +47,18 @@
       <file leaf-file-name="user.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/user.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="95" selection-end-column="5" />
+            <state relative-caret-position="419">
+              <caret line="97" column="1" lean-forward="false" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tickets.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tickets.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/handlers/tickets.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="63" column="52" lean-forward="false" selection-start-line="63" selection-start-column="52" selection-end-line="63" selection-end-column="52" />
+            <state relative-caret-position="441">
+              <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
               <folding>
                 <element signature="e#18#204#0" expanded="true" />
               </folding>
@@ -65,10 +66,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="database.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/database.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-198">
+            <state relative-caret-position="59">
               <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
@@ -78,8 +79,8 @@
       <file leaf-file-name="tickets.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/tickets.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+            <state relative-caret-position="437">
+              <caret line="56" column="1" lean-forward="false" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
               <folding>
                 <element signature="e#18#85#0" expanded="true" />
               </folding>
@@ -136,13 +137,13 @@
         <option value="$PROJECT_DIR$/handlers/middlewares.go" />
         <option value="$PROJECT_DIR$/handlers/auth.go" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/database/user.go" />
         <option value="$PROJECT_DIR$/database/database.go" />
         <option value="$PROJECT_DIR$/database/messages.go" />
         <option value="$PROJECT_DIR$/datastructures/datastructures.go" />
         <option value="$PROJECT_DIR$/router/router.go" />
         <option value="$PROJECT_DIR$/handlers/users.go" />
         <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/database/user.go" />
         <option value="$PROJECT_DIR$/database/tickets.go" />
         <option value="$PROJECT_DIR$/handlers/tickets.go" />
       </list>
@@ -604,47 +605,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/tickets.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
-          <folding>
-            <element signature="e#18#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="26" column="76" lean-forward="false" selection-start-line="26" selection-start-column="76" selection-end-line="26" selection-end-column="76" />
+        <state relative-caret-position="383">
+          <caret line="27" column="82" lean-forward="false" selection-start-line="27" selection-start-column="82" selection-end-line="27" selection-end-column="82" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/user.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="95" selection-end-column="5" />
+        <state relative-caret-position="419">
+          <caret line="97" column="1" lean-forward="false" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/tickets.go">
+    <entry file="file://$PROJECT_DIR$/database/tickets.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="63" column="52" lean-forward="false" selection-start-line="63" selection-start-column="52" selection-end-line="63" selection-end-column="52" />
+        <state relative-caret-position="437">
+          <caret line="56" column="1" lean-forward="false" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
           <folding>
-            <element signature="e#18#204#0" expanded="true" />
+            <element signature="e#18#85#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/database.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-198">
+        <state relative-caret-position="59">
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/tickets.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+          <folding>
+            <element signature="e#18#204#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

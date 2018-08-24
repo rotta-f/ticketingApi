@@ -163,3 +163,48 @@ func EditTicket(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.WriteJSON(w, t)
 }
+
+// Method: POST
+// Route: /tickets/{id}/close
+// Close a ticket
+func CloseTicket(w http.ResponseWriter, r *http.Request) {
+	u := CtxGetValue(r, STORE_AUTH).(*datastructures.User)
+	if u == nil {
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	// Get ID in path
+	urlT := strings.Split(r.URL.Path, "/")
+	id, err := strconv.ParseUint(urlT[3], 10, 64)
+	if err != nil {
+		log.Println(logHandlerTicket, "ParseInt ", err)
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	// Check if user is support or if user is author of title
+	t := &datastructures.Ticket{}
+	if u.Type != datastructures.USER_TYPE_SUPPORT {
+		t.ID = uint(id)
+		t, err = database.GetTicket(t)
+		if err != nil {
+			utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), "")
+			return
+		}
+		if t.Author.ID != u.ID {
+			utils.WriteError(w, http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized), "Client can only close ticket he owns")
+			return
+		}
+	}
+
+	t = &datastructures.Ticket{}
+	t.ID = uint(id)
+	t.Status = datastructures.TICKET_STATUS_CLOSED
+	t, err = database.EditTicket(t)
+	if err != nil {
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), "")
+		return
+	}
+	utils.WriteJSON(w, t)
+}
