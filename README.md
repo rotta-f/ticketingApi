@@ -11,21 +11,21 @@
 
 `POST` [/users/create/support](#create-a-support-user)  
 `POST` [/users/create/client](#create-a-client-user)  
-`PATCH` [/users/edit/{id_user}](#edit-a-user)  
+`PATCH` [/users/{id_user}](#edit-a-user)  
 
 #### Tickets
 `POST` [/tickets/create](#create-a-ticket)  
 `GET` [/tickets/{id}](#get-a-ticket)  
 `GET` [/tickets](#get-a-list-of-tickets)  
-`PATCH` [/tickets/{id}/edit](#edit-a-ticket)  
+`PATCH` [/tickets/{id}](#edit-a-ticket)  
 `POST` [/tickets/{id}/close](#close-a-ticket)  
 `POST` [/tickets/{id}/archive](#archive-a-ticket)  
 
 #### Messages
-`POST` [/messages/ticket/{id_ticket}/create](#add-message-to-ticket)  
+`POST` [/messages/ticket/{id_ticket}](#add-message-to-ticket)  
 `GET` [messages/ticket/{id_ticket}](#get-a-tickets-message)  
 `GET` [messages/{id}](#get-a-message)  
-`PATCH` [messages/{id}/edit](#edit-a-message)
+`PATCH` [messages/{id}](#edit-a-message)
 
 ## Use of API
 
@@ -104,7 +104,7 @@ Endpoint: `/users/create/client`
 #### Edit a user
 
 Method:   `PATCH`  
-Endpoint: `/users/edit/{id_user}` 
+Endpoint: `/users/{id_user}` 
 
 *A client can only modify itself*
 
@@ -176,7 +176,7 @@ Endpoint: `/tickets/{id}/edit`
 Method:   `POST`  
 Endpoint: `/tickets/{id}/close`  
 
-*Only for support*
+*A client can only close a ticket created by himself*
 
 | Request | Response |
 |---------|----------|
@@ -186,6 +186,8 @@ Endpoint: `/tickets/{id}/close`
 
 Method:   `POST`  
 Endpoint: `/tickets/{id}/archive`  
+
+*A client can only archive a ticket created by himself*
 
 | Request | Response |
 |---------|----------|
@@ -205,7 +207,7 @@ Endpoint: `/tickets/{id}/archive`
 #### Add message to ticket
 
 Method:   `POST`  
-Endpoint: `/messages/ticket/{id_ticket}/create`  
+Endpoint: `/messages/ticket/{id_ticket}`  
 
 | Request | Response |
 |---------|----------|
@@ -214,7 +216,7 @@ Endpoint: `/messages/ticket/{id_ticket}/create`
 #### Edit a message
 
 Method:   `PATCH`  
-Endpoint: `/messages/{id}/edit`  
+Endpoint: `/messages/{id}`  
 
 *A client can only modify a message created by himself*
 
