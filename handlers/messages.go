@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"net/http"
-	"strings"
-	"strconv"
-	"github.com/rotta-f/ticketingApi/datastructures"
-	"log"
-	"github.com/rotta-f/ticketingApi/utils"
 	"github.com/rotta-f/ticketingApi/database"
+	"github.com/rotta-f/ticketingApi/datastructures"
+	"github.com/rotta-f/ticketingApi/utils"
+	"log"
+	"net/http"
+	"strconv"
+	"strings"
 )
 
 const (

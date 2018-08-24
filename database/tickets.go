@@ -45,7 +45,7 @@ func GetTickets(in *datastructures.Ticket) ([]datastructures.Ticket, error) {
 	return out, nil
 }
 
-func editTicket(tUpdate *datastructures.Ticket) (error) {
+func editTicket(tUpdate *datastructures.Ticket) error {
 	model := &datastructures.Ticket{}
 	model.ID = tUpdate.ID
 

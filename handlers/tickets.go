@@ -135,7 +135,6 @@ func EditTicket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
 	// Check if user is support or if user is author of title
 	t := &datastructures.Ticket{}
 	if u.Type != datastructures.USER_TYPE_SUPPORT {

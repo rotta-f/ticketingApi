@@ -13,6 +13,7 @@ const (
 )
 
 var gDB *gorm.DB
+var gDBArchive *gorm.DB
 
 func init() {
 	db, err := gorm.Open("sqlite3", "ticketing.db")
