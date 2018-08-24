@@ -209,8 +209,6 @@ Endpoint: `/tickets/{id}/archive`
 Method:   `POST`  
 Endpoint: `/messages/ticket/{id_ticket}`  
 
-*Only support can add a message to closed tickets*
-
 | Request | Response |
 |---------|----------|
 | **text :** Content | **message :** [Message struct](#message-struct) |
