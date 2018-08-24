@@ -80,6 +80,9 @@ func NewMessageToTicket(w http.ResponseWriter, r *http.Request) {
 	utils.WriteJSON(w, m)
 }
 
+// Method: GET
+// Route: /messages/ticket/{id_ticket}
+// Get ticket's messages
 func GetTicketMessages(w http.ResponseWriter, r *http.Request) {
 	// Get ID in path
 	urlT := strings.Split(r.URL.Path, "/")
@@ -100,4 +103,28 @@ func GetTicketMessages(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.WriteJSON(w, ms)
+}
+
+// Method: GET
+// Route: /messages/{id}
+// Get a message
+func GetMessage(w http.ResponseWriter, r *http.Request) {
+	// Get ID in path
+	urlT := strings.Split(r.URL.Path, "/")
+	id, err := strconv.ParseUint(urlT[3], 10, 64)
+	if err != nil {
+		log.Println(logHandlerMessage, "ParseInt ", err)
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	m := &datastructures.Message{}
+	m.ID = uint(id)
+	m, err = database.GetMessage(m)
+	if err != nil {
+		log.Println(logHandlerMessage, err)
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
+		return
+	}
+	utils.WriteJSON(w, m)
 }
