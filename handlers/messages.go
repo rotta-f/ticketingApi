@@ -51,6 +51,10 @@ func NewMessageToTicket(w http.ResponseWriter, r *http.Request) {
 	t := &datastructures.Ticket{}
 	t.ID = uint(id)
 	t, err = database.GetTicket(t)
+	if err != nil {
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), err.Error())
+		return
+	}
 	if t.Status == datastructures.TICKET_STATUS_CLOSED {
 		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), "Cannot add message on closed tickets")
 		return
@@ -74,4 +78,26 @@ func NewMessageToTicket(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.WriteJSON(w, m)
+}
+
+func GetTicketMessages(w http.ResponseWriter, r *http.Request) {
+	// Get ID in path
+	urlT := strings.Split(r.URL.Path, "/")
+	id, err := strconv.ParseUint(urlT[4], 10, 64)
+	if err != nil {
+		log.Println(logHandlerMessage, "ParseInt ", err)
+		utils.WriteError(w, http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), "")
+		return
+	}
+
+	t := &datastructures.Ticket{}
+	t.ID = uint(id)
+	ms, err := database.GetTicketMessages(t)
+	if err != nil {
+		log.Println(logHandlerMessage, err)
+		utils.WriteError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest), "")
+		return
+	}
+
+	utils.WriteJSON(w, ms)
 }

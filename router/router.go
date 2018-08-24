@@ -38,7 +38,9 @@ func UseRouter(router *Router) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		for _, route := range router.Routes {
 			if r.Method == route.Method && route.rg.Match([]byte(r.URL.Path)) {
-				route.HandlerFunc(w, r)
+				if route.HandlerFunc != nil {
+					route.HandlerFunc(w, r)
+				}
 				return
 			}
 		}

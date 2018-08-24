@@ -32,7 +32,7 @@ func main() {
 
 	routerMessage := router.NewRouter()
 	routerMessage.AddRoute("POST", `/v1/messages/ticket/+[\d]+`, handlers.NewMessageToTicket)
-	routerMessage.AddRoute("GET", `/v1/messages/ticket/+[\d]+`, nil)
+	routerMessage.AddRoute("GET", `/v1/messages/ticket/+[\d]+`, handlers.GetTicketMessages)
 	routerMessage.AddRoute("GET", `/v1/messages/+[\d]+`, nil)
 	routerMessage.AddRoute("PATCH", `/v1/messages/+[\d]+`, nil)
 	http.Handle("/v1/messages/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerMessage)))))

@@ -44,3 +44,13 @@ func GetMessage(in *datastructures.Message) (*datastructures.Message, error) {
 	}
 	return out, nil
 }
+
+func GetTicketMessages(in *datastructures.Ticket) ([]datastructures.Message, error) {
+	out := []datastructures.Message{}
+	retDB := gDB.Model(in).Preload("Author").Related(&out)
+	if retDB.Error != nil {
+		log.Println(logDatabaseMessage, "GetTicketMessages ", retDB.Error)
+		return nil, retDB.Error
+	}
+	return out, nil
+}
