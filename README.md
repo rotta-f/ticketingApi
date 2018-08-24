@@ -27,6 +27,20 @@
 `GET` [messages/{id}](#get-a-message)  
 `PATCH` [messages/{id}/edit](#edit-a-message)
 
+## Use of API
+
+To use any routes of the API, you need to add the version prefix (current `v1`) before the endpoint.
+
+All request (except for `/auth` routes) must be made with the access token in the header as follow :  
+`Authorization: Bearer *Your Access Token*`
+
+Default support user credentials:  
+Email: `admin@ticket.lu`  
+Password: `admin`
+
+Example of curl command on localhost:  
+`curl -X POST -H 'Authorization: Bearer *your_access_token*' -d '{"title": "Test", "message": "This is a test"}' "localhost:3000/v1/tickets/create"`
+
 ## Authentication
 
 #### Sign up
@@ -155,6 +169,7 @@ Endpoint: `/tickets/{id}/edit`
 | Request | Response |
 |---------|----------|
 | **title :** Title | **ticket :** [Ticket struct](#ticket-struct) |
+| **status :** Status, *only for support* | |
 
 #### Close a ticket
 
@@ -200,6 +215,8 @@ Endpoint: `/messages/ticket/{id_ticket}/create`
 
 Method:   `PATCH`  
 Endpoint: `/messages/{id}/edit`  
+
+*A client can only modify a message created by himself*
 
 | Request | Response |
 |---------|----------|
