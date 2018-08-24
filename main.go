@@ -16,7 +16,7 @@ func main() {
 	routerUser := router.NewRouter()
 	routerUser.AddRoute("POST", "/v1/users/create/support", handlers.UserCreateSupport)
 	routerUser.AddRoute("POST", "/v1/users/create/client", handlers.UserCreateClient)
-	routerUser.AddRoute("PATCH", `/v1/users/edit/+[\d]+`, handlers.UserUpdate)
+	routerUser.AddRoute("PATCH", `/v1/users/+[\d]+`, handlers.UserUpdate)
 	http.Handle("/v1/users/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerUser)))))
 
 	routerTicket := router.NewRouter()
@@ -29,6 +29,13 @@ func main() {
 	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/archive`, nil)
 	http.Handle("/v1/tickets/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerTicket)))))
 	http.Handle("/v1/tickets", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerTicket)))))
+
+	routerMessage := router.NewRouter()
+	routerMessage.AddRoute("POST", `/v1/messages/ticket/+[\d]+`, handlers.NewMessageToTicket)
+	routerMessage.AddRoute("GET", `/v1/messages/ticket/+[\d]+`, nil)
+	routerMessage.AddRoute("GET", `/v1/messages/+[\d]+`, nil)
+	routerMessage.AddRoute("PATCH", `/v1/messages/+[\d]+`, nil)
+	http.Handle("/v1/messages/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerMessage)))))
 
 	/*routerAuth.AddRoute("POST", `/v1/auth/+[\d]`, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("signup"))

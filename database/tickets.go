@@ -30,6 +30,7 @@ func GetTicket(in *datastructures.Ticket) (*datastructures.Ticket, error) {
 	out := &datastructures.Ticket{}
 	retDB := gDB.Where(in).Preload("Author").Preload("Messages").Preload("Messages.Author").Find(out)
 	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "GetTicket ", retDB.Error)
 		return nil, retDB.Error
 	}
 	return out, nil
@@ -44,14 +45,25 @@ func GetTickets(in *datastructures.Ticket) ([]datastructures.Ticket, error) {
 	return out, nil
 }
 
-func EditTicket(tUpdate *datastructures.Ticket) (*datastructures.Ticket, error) {
+func editTicket(tUpdate *datastructures.Ticket) (error) {
 	model := &datastructures.Ticket{}
 	model.ID = tUpdate.ID
 
 	retDB := gDB.Model(model).Update(tUpdate)
 	if retDB.Error != nil {
 		log.Println(logDatabaseTicket, "Update ", retDB.Error)
-		return nil, retDB.Error
+		return retDB.Error
 	}
+	return nil
+}
+
+func EditTicket(tUpdate *datastructures.Ticket) (*datastructures.Ticket, error) {
+	err := editTicket(tUpdate)
+	if err != nil {
+		return nil, err
+	}
+
+	model := &datastructures.Ticket{}
+	model.ID = tUpdate.ID
 	return GetTicket(model)
 }
