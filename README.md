@@ -176,7 +176,7 @@ Endpoint: `/tickets/{id}/edit`
 Method:   `POST`  
 Endpoint: `/tickets/{id}/close`  
 
-*Only for support*
+*A client can only close a ticket created by himself*
 
 | Request | Response |
 |---------|----------|
@@ -186,6 +186,8 @@ Endpoint: `/tickets/{id}/close`
 
 Method:   `POST`  
 Endpoint: `/tickets/{id}/archive`  
+
+*A client can only archive a ticket created by himself*
 
 | Request | Response |
 |---------|----------|
@@ -205,7 +207,7 @@ Endpoint: `/tickets/{id}/archive`
 #### Add message to ticket
 
 Method:   `POST`  
-Endpoint: `/messages/ticket/{id_ticket}/create`  
+Endpoint: `/messages/ticket/{id_ticket}`  
 
 | Request | Response |
 |---------|----------|
