@@ -67,3 +67,42 @@ func EditTicket(tUpdate *datastructures.Ticket) (*datastructures.Ticket, error) 
 	model.ID = tUpdate.ID
 	return GetTicket(model)
 }
+
+func ArchiveTicket(t *datastructures.Ticket) (error) {
+	// Get the data to archive
+	outT := datastructures.Ticket{}
+	retDB := gDB.Where(t).Find(&outT)
+	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "ArchiveFind ", retDB.Error)
+		return retDB.Error
+	}
+	outM := []datastructures.Message{}
+	retDB = gDB.Model(t).Related(&outM)
+	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "ArchiveRelative ", retDB.Error)
+		return retDB.Error
+	}
+
+	// Store the data in Archive
+	retDB = gDBArchive.Create(outT)
+	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "ArchiveCreateTicket ", retDB.Error)
+	}
+	for _, elem := range outM {
+		retDB = gDBArchive.Create(&elem)
+		if retDB.Error != nil {
+			log.Println(logDatabaseTicket, "ArchiveCreateMSG ", retDB.Error)
+		}
+	}
+
+	// Delete old data
+	retDB = gDB.Where("ID = ?", t.ID).Delete(datastructures.Ticket{})
+	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "ArchiveCreateTicket ", retDB.Error)
+	}
+	retDB = gDB.Where("Ticket_ID = ?", t.ID).Delete(datastructures.Message{})
+	if retDB.Error != nil {
+		log.Println(logDatabaseTicket, "ArchiveCreateTicket ", retDB.Error)
+	}
+	return nil
+}

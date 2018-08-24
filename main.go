@@ -26,7 +26,7 @@ func main() {
 	routerTicket.AddRoute("GET", `/v1/tickets/+[\d]+`, handlers.GetTicketById)
 	routerTicket.AddRoute("PATCH", `/v1/tickets/+[\d]+`, handlers.EditTicket)
 	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/close`, handlers.CloseTicket)
-	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/archive`, nil)
+	routerTicket.AddRoute("POST", `/v1/tickets/+[\d]+/archive`, handlers.ArchiveTicket)
 	http.Handle("/v1/tickets/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerTicket)))))
 	http.Handle("/v1/tickets", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerTicket)))))
 
@@ -37,9 +37,6 @@ func main() {
 	routerMessage.AddRoute("PATCH", `/v1/messages/+[\d]+`, handlers.EditMessage)
 	http.Handle("/v1/messages/", handlers.WithLogging(handlers.WithContext(handlers.WithAuth(router.UseRouter(routerMessage)))))
 
-	/*routerAuth.AddRoute("POST", `/v1/auth/+[\d]`, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("signup"))
-	})*/
 
 	log.Println("Ready to listen and serve on port 3000.")
 	http.ListenAndServe(":3000", nil)

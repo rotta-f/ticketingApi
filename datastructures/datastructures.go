@@ -33,10 +33,6 @@ type Ticket struct {
 	Messages []Message `json:"messages,omitempty" gorm:"foreignkey:TicketID"`
 }
 
-type TicketArchive struct {
-	Ticket
-}
-
 type Message struct {
 	gorm.Model
 

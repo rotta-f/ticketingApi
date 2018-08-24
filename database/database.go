@@ -17,14 +17,21 @@ var gDBArchive *gorm.DB
 
 func init() {
 	db, err := gorm.Open("sqlite3", "ticketing.db")
-
 	if err != nil {
 		log.Fatal(logDatabaseInit, err)
 	}
 
 	db.SingularTable(true)
-	db.AutoMigrate(&datastructures.Authentication{}, &datastructures.User{}, &datastructures.Message{}, &datastructures.Ticket{}, &datastructures.TicketArchive{})
+	db.AutoMigrate(&datastructures.Authentication{}, &datastructures.User{}, &datastructures.Message{}, &datastructures.Ticket{})
 	gDB = db
+
+	dbA, err := gorm.Open("sqlite3", "ticketingArchive.db")
+	if err != nil {
+		log.Fatal(logDatabaseInit, err)
+	}
+	dbA.SingularTable(true)
+	dbA.AutoMigrate(&datastructures.Message{}, &datastructures.Ticket{})
+	gDBArchive = dbA
 
 	// Create admin user if new database
 	var c int

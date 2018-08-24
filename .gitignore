@@ -12,3 +12,4 @@
 *.out
 
 ticketing.db
+ticketingArchive.db
