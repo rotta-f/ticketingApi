@@ -17,12 +17,12 @@
 `POST` [/tickets/create](#create-a-ticket)  
 `GET` [/tickets/{id}](#get-a-ticket)  
 `GET` [/tickets](#get-a-list-of-tickets)  
-`PATCH` [/tickets/{id}/edit](#edit-a-ticket)  
+`PATCH` [/tickets/{id}](#edit-a-ticket)  
 `POST` [/tickets/{id}/close](#close-a-ticket)  
 `POST` [/tickets/{id}/archive](#archive-a-ticket)  
 
 #### Messages
-`POST` [/messages/ticket/{id_ticket}/create](#add-message-to-ticket)  
+`POST` [/messages/ticket/{id_ticket}](#add-message-to-ticket)  
 `GET` [messages/ticket/{id_ticket}](#get-a-tickets-message)  
 `GET` [messages/{id}](#get-a-message)  
 `PATCH` [messages/{id}/edit](#edit-a-message)
